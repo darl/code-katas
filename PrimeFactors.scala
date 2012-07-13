@@ -5,30 +5,32 @@ exec scala "$0" "$@"
 http://amirrajan.net/Blog/code-katas-prime-factors
 */
 
-import scala.math._
+//import scala.math._
+import scala.annotation.tailrec
 
 object PrimeFactors extends App {
+	@tailrec private def expand(num: Int, i: Int, list: List[Int]): List[Int] = {
+		if (num > 1) {
+			if (num % i == 0) {
+				expand(num / i, i, i :: list)
+			} else {
+				expand(num, i + 1, list)
+			}
+		} else {
+			list
+		}
+	}
+
 	def expand (num: Int): Seq[Int] = {
 		if (num == Int.MaxValue) {
 			List(Int.MaxValue)
 		} else {
-			var n = num
-			var i = 2
-			var result = List[Int]()
-			while (n > 1) {
-				if (n % i == 0) {
-					n = n / i
-					result = i :: result
-				} else {
-					i += 1
-				}
-			}
-			result.reverse
+			expand(num, 2, List()) reverse
 		}
 	}	
 
-	def myAssert(expected: Any, actual: Any, message: String) {
-		assert(expected == actual, message)
+	def myAssert(actual: Any, expected: Any, message: String) {
+		assert(expected == actual, "%s - failed. Expected: %s, actual: %s".format(message, expected, actual))
 		Console.println(message.formatted("%s - ok"))
 	}
 
