@@ -9,24 +9,21 @@ http://amirrajan.net/Blog/code-katas-prime-factors
 import scala.annotation.tailrec
 
 object PrimeFactors extends App {
-	@tailrec private def expand(num: Int, i: Int, list: List[Int]): List[Int] = {
-		if (num > 1) {
-			if (num % i == 0) {
-				expand(num / i, i, i :: list)
-			} else {
-				expand(num, i + 1, list)
-			}
-		} else {
-			list
-		}
+	@tailrec private def expand(num: Int, i: Int, result: List[Int]): List[Int] = {
+		if (num > 1)
+			if (num % i == 0) 
+				expand(num / i, i, i :: result)
+			else
+				expand(num, i + 1, result)
+		else 
+			result reverse
 	}
 
-	def expand (num: Int): Seq[Int] = {
-		if (num == Int.MaxValue) {
+	def expand (num: Int): List[Int] = {
+		if (num == Int.MaxValue) 
 			List(Int.MaxValue)
-		} else {
-			expand(num, 2, List()) reverse
-		}
+		else 
+			expand(num, 2, List())
 	}	
 
 	def myAssert(actual: Any, expected: Any, message: String) {
