@@ -17,7 +17,7 @@ object Bowling extends App {
       }
       val curr = ("" + c).toInt
       last2 += curr
-      sum += curr * (if (sum == 10) 2 else 1)
+      sum += curr * (if (last2 == 10) 2 else 1)
       even = !even
     }
     sum
