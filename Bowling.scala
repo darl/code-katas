@@ -10,14 +10,19 @@ object Bowling extends App {
   def calc(score: String): Int = {
     var sum = 0
     var even = false
+    var doubles = 0
     var last2 = 0
     for (c <- score) {
       if (!even) {
         last2 = 0
       }
-      val curr = ("" + c).toInt
+      val curr = if (c == 'X') 10 else if (c == '-') 0 else ("" + c).toInt
       last2 += curr
-      sum += curr * (if (last2 == 10) 2 else 1)
+  
+      sum += curr * (if (doubles > 0) 2 else 1)
+      doubles = if (doubles == 0) 0 else doubles - 1
+      if (last2 >9) doubles += 1
+      if (c == '-') doubles += 1
       even = !even
     }
     sum
