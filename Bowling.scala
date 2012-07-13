@@ -30,6 +30,7 @@ object Bowling extends App {
 
   myAssert(calc("31415390107133238009"), 63, "first test")
   myAssert(calc("91415390107133238009"), 73, "spare")
+  myAssert(calc("X-415390107133238009"), 74, "strike")
 }
 
 Bowling.main(args)
